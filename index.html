@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Franciele Souza de Jesus — Desenvolvedora Back-end</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0B0F14;
+    --surface: #121821;
+    --surface-2: #171F2A;
+    --border: #232D3B;
+    --text: #E6EDF3;
+    --muted: #7D8A9C;
+    --teal: #4FD1C5;
+    --amber: #F2B84B;
+    --font-display: 'JetBrains Mono', monospace;
+    --font-body: 'Inter', sans-serif;
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+
+  html{ scroll-behavior:smooth; }
+
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--font-body);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; scroll-behavior:auto !important; }
+  }
+
+  a{ color:inherit; text-decoration:none; }
+  ::selection{ background:var(--teal); color:#0B0F14; }
+
+  :focus-visible{
+    outline:2px solid var(--teal);
+    outline-offset:3px;
+  }
+
+  /* background schema pattern */
+  .schema-bg{
+    position:fixed;
+    inset:0;
+    z-index:0;
+    opacity:0.35;
+    pointer-events:none;
+  }
+
+  .container{
+    max-width:920px;
+    margin:0 auto;
+    padding:0 24px;
+    position:relative;
+    z-index:1;
+  }
+
+  /* NAV */
+  nav{
+    position:sticky;
+    top:0;
+    z-index:50;
+    background:rgba(11,15,20,0.85);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--border);
+  }
+  .nav-inner{
+    max-width:920px;
+    margin:0 auto;
+    padding:16px 24px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+  }
+  .nav-logo{
+    font-family:var(--font-display);
+    font-weight:700;
+    font-size:14px;
+    color:var(--teal);
+  }
+  .nav-links{
+    display:flex;
+    gap:28px;
+    font-family:var(--font-display);
+    font-size:13px;
+    color:var(--muted);
+  }
+  .nav-links a{ transition:color 0.2s; }
+  .nav-links a:hover{ color:var(--text); }
+  .nav-toggle{ display:none; }
+
+  @media (max-width:640px){
+    .nav-links{ gap:16px; font-size:11px; }
+  }
+
+  /* HERO */
+  .hero{
+    min-height:88vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    padding:80px 0 60px;
+  }
+
+  .terminal{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:10px;
+    overflow:hidden;
+    box-shadow:0 20px 60px -20px rgba(0,0,0,0.6);
+  }
+
+  .terminal-bar{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    padding:12px 16px;
+    background:var(--surface-2);
+    border-bottom:1px solid var(--border);
+  }
+  .dot{ width:11px; height:11px; border-radius:50%; }
+  .dot.red{ background:#FF5F57; }
+  .dot.yellow{ background:#FEBC2E; }
+  .dot.green{ background:#28C840; }
+  .terminal-title{
+    margin-left:8px;
+    font-family:var(--font-display);
+    font-size:12px;
+    color:var(--muted);
+  }
+
+  .terminal-body{
+    padding:28px 24px 32px;
+    font-family:var(--font-display);
+  }
+
+  .prompt-line{
+    display:flex;
+    gap:10px;
+    margin-bottom:6px;
+    font-size:14px;
+    color:var(--muted);
+  }
+  .prompt-line .sym{ color:var(--teal); }
+
+  .hero h1{
+    font-family:var(--font-display);
+    font-size:clamp(28px, 5vw, 46px);
+    font-weight:800;
+    line-height:1.15;
+    margin:14px 0 6px;
+    color:var(--text);
+  }
+
+  .hero .role{
+    font-family:var(--font-display);
+    font-size:clamp(14px,2vw,17px);
+    color:var(--amber);
+    margin-bottom:18px;
+  }
+
+  .cursor{
+    display:inline-block;
+    width:10px;
+    height:1.1em;
+    background:var(--amber);
+    margin-left:4px;
+    vertical-align:text-bottom;
+    animation:blink 1s step-end infinite;
+  }
+  @keyframes blink{ 50%{ opacity:0; } }
+
+  .hero p.desc{
+    max-width:520px;
+    color:var(--muted);
+    font-size:15.5px;
+    margin-bottom:26px;
+  }
+
+  .hero-actions{
+    display:flex;
+    gap:14px;
+    flex-wrap:wrap;
+  }
+
+  .btn{
+    font-family:var(--font-display);
+    font-size:13px;
+    font-weight:600;
+    padding:12px 20px;
+    border-radius:6px;
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    transition:transform 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+  }
+  .btn-primary{
+    background:var(--teal);
+    color:#08141A;
+  }
+  .btn-primary:hover{ transform:translateY(-2px); background:#63e0d4; }
+  .btn-outline{
+    border:1px solid var(--border);
+    color:var(--text);
+  }
+  .btn-outline:hover{ border-color:var(--teal); color:var(--teal); transform:translateY(-2px); }
+
+  /* SECTION SHARED */
+  section{ padding:90px 0; border-top:1px solid var(--border); }
+  .eyebrow{
+    font-family:var(--font-display);
+    font-size:12px;
+    color:var(--teal);
+    letter-spacing:0.06em;
+    margin-bottom:10px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .eyebrow::before{
+    content:'';
+    width:16px;
+    height:1px;
+    background:var(--teal);
+  }
+  h2{
+    font-family:var(--font-display);
+    font-size:clamp(22px,3.4vw,30px);
+    font-weight:700;
+    margin-bottom:28px;
+  }
+
+  /* ABOUT */
+  .about-text{
+    color:var(--muted);
+    font-size:16px;
+    max-width:640px;
+  }
+  .about-text strong{ color:var(--text); font-weight:600; }
+
+  .info-grid{
+    margin-top:36px;
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:16px;
+  }
+  @media (max-width:600px){ .info-grid{ grid-template-columns:1fr; } }
+
+  .info-card{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:8px;
+    padding:18px 20px;
+  }
+  .info-card .label{
+    font-family:var(--font-display);
+    font-size:11px;
+    color:var(--muted);
+    text-transform:uppercase;
+    letter-spacing:0.05em;
+    margin-bottom:6px;
+  }
+  .info-card .value{ font-size:14.5px; color:var(--text); }
+
+  /* SKILLS */
+  .skills-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:14px;
+  }
+  @media (max-width:640px){ .skills-grid{ grid-template-columns:1fr 1fr; } }
+  @media (max-width:420px){ .skills-grid{ grid-template-columns:1fr; } }
+
+  .skill-card{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:8px;
+    padding:20px 18px;
+    transition:border-color 0.2s, transform 0.2s;
+  }
+  .skill-card:hover{ border-color:var(--teal); transform:translateY(-3px); }
+  .skill-card .k{
+    font-family:var(--font-display);
+    font-weight:700;
+    font-size:16px;
+    color:var(--text);
+    margin-bottom:6px;
+    display:block;
+  }
+  .skill-card .v{
+    font-size:13px;
+    color:var(--muted);
+  }
+  .skill-card .tag{
+    display:inline-block;
+    margin-top:10px;
+    font-family:var(--font-display);
+    font-size:11px;
+    color:var(--amber);
+    border:1px solid rgba(242,184,75,0.3);
+    padding:3px 8px;
+    border-radius:4px;
+  }
+
+  /* PROJECT */
+  .project-card{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:10px;
+    overflow:hidden;
+  }
+  .project-head{
+    padding:26px 26px 0;
+  }
+  .project-head .ptitle{
+    font-family:var(--font-display);
+    font-size:20px;
+    font-weight:700;
+    color:var(--text);
+    margin-bottom:8px;
+  }
+  .project-head .pdesc{
+    color:var(--muted);
+    font-size:14.5px;
+    max-width:560px;
+    margin-bottom:18px;
+  }
+
+  .schema-strip{
+    margin:0 26px 22px;
+    background:var(--bg);
+    border:1px solid var(--border);
+    border-radius:8px;
+    padding:16px 18px;
+    font-family:var(--font-display);
+    font-size:12.5px;
+    color:var(--muted);
+    overflow-x:auto;
+  }
+  .schema-strip .tbl{ color:var(--teal); }
+  .schema-strip .col{ color:var(--text); }
+
+  .feature-list{
+    margin:0 26px 22px;
+    display:grid;
+    gap:10px;
+  }
+  .feature-list li{
+    list-style:none;
+    display:flex;
+    gap:10px;
+    font-size:14px;
+    color:var(--muted);
+  }
+  .feature-list li::before{
+    content:'▸';
+    color:var(--amber);
+    flex-shrink:0;
+  }
+
+  .stack-row{
+    margin:0 26px 26px;
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+  }
+  .chip{
+    font-family:var(--font-display);
+    font-size:11.5px;
+    padding:5px 10px;
+    border-radius:5px;
+    background:var(--surface-2);
+    border:1px solid var(--border);
+    color:var(--text);
+  }
+
+  .project-foot{
+    border-top:1px solid var(--border);
+    padding:16px 26px;
+    display:flex;
+    gap:20px;
+    background:var(--surface-2);
+  }
+  .project-foot a{
+    font-family:var(--font-display);
+    font-size:13px;
+    color:var(--teal);
+    display:flex;
+    align-items:center;
+    gap:6px;
+    transition:opacity 0.2s;
+  }
+  .project-foot a:hover{ opacity:0.75; }
+
+  /* EDUCATION */
+  .edu-row{
+    display:flex;
+    gap:18px;
+    align-items:flex-start;
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:8px;
+    padding:20px 22px;
+  }
+  .edu-dot{
+    width:10px; height:10px; border-radius:50%;
+    background:var(--teal);
+    margin-top:6px;
+    flex-shrink:0;
+  }
+  .edu-row .etitle{ font-weight:600; font-size:15.5px; margin-bottom:4px; }
+  .edu-row .esub{ font-size:13.5px; color:var(--muted); }
+  .edu-row .estatus{
+    margin-top:8px;
+    display:inline-block;
+    font-family:var(--font-display);
+    font-size:11px;
+    color:var(--amber);
+    border:1px solid rgba(242,184,75,0.3);
+    padding:2px 8px;
+    border-radius:4px;
+  }
+
+  /* CONTACT */
+  .contact-wrap{
+    text-align:left;
+  }
+  .contact-links{
+    margin-top:26px;
+    display:grid;
+    gap:12px;
+  }
+  .contact-link{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:8px;
+    padding:16px 20px;
+    transition:border-color 0.2s, transform 0.2s;
+  }
+  .contact-link:hover{ border-color:var(--teal); transform:translateX(4px); }
+  .contact-link .clabel{
+    font-family:var(--font-display);
+    font-size:11px;
+    color:var(--muted);
+    text-transform:uppercase;
+    letter-spacing:0.05em;
+  }
+  .contact-link .cvalue{ font-size:15px; margin-top:3px; }
+  .contact-link .arrow{ color:var(--teal); font-family:var(--font-display); }
+
+  footer{
+    padding:36px 0 50px;
+    text-align:center;
+    color:var(--muted);
+    font-family:var(--font-display);
+    font-size:12px;
+    border-top:1px solid var(--border);
+  }
+  footer .foot-cursor{ color:var(--teal); }
+</style>
+</head>
+<body>
+
+<svg class="schema-bg" viewBox="0 0 1200 1600" preserveAspectRatio="xMidYMin slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <g stroke="#1B2531" stroke-width="1" fill="none">
+    <line x1="200" y1="120" x2="200" y2="900"/>
+    <line x1="200" y1="900" x2="450" y2="900"/>
+    <line x1="980" y1="200" x2="980" y2="1400"/>
+    <line x1="700" y1="1400" x2="980" y2="1400"/>
+    <line x1="60" y1="1200" x2="360" y2="1200"/>
+    <line x1="360" y1="1200" x2="360" y2="1500"/>
+  </g>
+  <g fill="#1B2531">
+    <circle cx="200" cy="120" r="3"/>
+    <circle cx="200" cy="900" r="3"/>
+    <circle cx="450" cy="900" r="3"/>
+    <circle cx="980" cy="200" r="3"/>
+    <circle cx="980" cy="1400" r="3"/>
+    <circle cx="700" cy="1400" r="3"/>
+    <circle cx="60" cy="1200" r="3"/>
+    <circle cx="360" cy="1200" r="3"/>
+    <circle cx="360" cy="1500" r="3"/>
+  </g>
+</svg>
+
+<nav>
+  <div class="nav-inner">
+    <div class="nav-logo">franciele.dev</div>
+    <div class="nav-links">
+      <a href="#sobre">sobre</a>
+      <a href="#skills">skills</a>
+      <a href="#projeto">projeto</a>
+      <a href="#contato">contato</a>
+    </div>
+  </div>
+</nav>
+
+<main class="container">
+
+  <section class="hero" id="topo">
+    <div class="terminal">
+      <div class="terminal-bar">
+        <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+        <span class="terminal-title">franciele@portfolio: ~</span>
+      </div>
+      <div class="terminal-body">
+        <div class="prompt-line"><span class="sym">$</span> whoami</div>
+        <h1>Franciele Souza de Jesus</h1>
+        <div class="role">&gt; desenvolvedora back-end em formação<span class="cursor"></span></div>
+        <p class="desc">Estudante de Ciência da Computação, com foco em back-end e banco de dados. Gosto de entender como os dados fluem por um sistema — da modelagem ao SQL que faz tudo funcionar. Em busca da minha primeira oportunidade na área.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#projeto">ver projeto →</a>
+          <a class="btn btn-outline" href="#contato">entrar em contato</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="sobre">
+    <div class="eyebrow">$ cat sobre.txt</div>
+    <h2>Sobre mim</h2>
+    <p class="about-text">
+      Sou <strong>Franciele</strong>, estudante de <strong>Ciência da Computação na Unicid</strong>, com previsão de conclusão em <strong>dezembro de 2029</strong>. Estou construindo minha base em back-end — lógica, estruturação de dados e SQL — e buscando meu primeiro passo profissional na área de tecnologia. Gosto de projetos que envolvem organizar informação de forma clara e confiável, e é isso que venho praticando nos meus estudos.
+    </p>
+    <div class="info-grid">
+      <div class="info-card">
+        <div class="label">Foco atual</div>
+        <div class="value">Back-end · Python · SQL · UML</div>
+      </div>
+      <div class="info-card">
+        <div class="label">Status</div>
+        <div class="value">Em busca de oportunidades (estágio/júnior)</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="eyebrow">$ cat skills.txt</div>
+    <h2>Tecnologias</h2>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <span class="k">Python</span>
+        <span class="v">Lógica de programação, scripts e integração com banco de dados.</span>
+        <span class="tag">em prática</span>
+      </div>
+      <div class="skill-card">
+        <span class="k">Java</span>
+        <span class="v">Noções básicas de sintaxe e lógica de programação.</span>
+        <span class="tag">nível básico</span>
+      </div>
+      <div class="skill-card">
+        <span class="k">SQL</span>
+        <span class="v">Modelagem, consultas e manipulação de dados relacionais.</span>
+        <span class="tag">em prática</span>
+      </div>
+      <div class="skill-card">
+        <span class="k">UML &amp; Diagramas</span>
+        <span class="v">Documentação de sistemas com diagramas de caso de uso, classes e fluxo.</span>
+        <span class="tag">faculdade</span>
+      </div>
+      <div class="skill-card">
+        <span class="k">Acessibilidade</span>
+        <span class="v">Noções de leis e diretrizes de acessibilidade digital (WCAG) aplicadas ao desenvolvimento.</span>
+        <span class="tag">faculdade</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="projeto">
+    <div class="eyebrow">$ git log --oneline</div>
+    <h2>Projeto em destaque</h2>
+
+    <div class="project-card">
+      <div class="project-head">
+        <div class="ptitle">sistema-loja-python-mysql</div>
+        <p class="pdesc">Sistema de linha de comando para gestão de uma loja: registra vendas, calcula descontos e totais, cadastra e consulta funcionários, e gera relatórios de faturamento por data. Toda a persistência é feita em um banco MySQL, com credenciais protegidas por variáveis de ambiente.</p>
+      </div>
+
+      <div class="schema-strip">
+<span class="tbl">relatorios</span>(marca_da_roupa, preco_da_roupa, id_do_atendente, desconto, total_da_compra, data)
+<br><span class="tbl">funcionarios</span>(id, nomes, nascimento, endereco, sexo, telefone)
+      </div>
+
+      <ul class="feature-list">
+        <li>Cadastro de vendas com validação de entrada (preço, ID, desconto) e cálculo automático do total.</li>
+        <li>Relatório de vendas por data, com soma do lucro total do dia.</li>
+        <li>CRUD de funcionários: cadastro, busca por ID e remoção.</li>
+        <li>Conexão segura com MySQL usando <code>python-dotenv</code> para não expor a senha no código.</li>
+      </ul>
+
+      <div class="stack-row">
+        <span class="chip">Python</span>
+        <span class="chip">MySQL</span>
+        <span class="chip">mysql-connector</span>
+        <span class="chip">python-dotenv</span>
+      </div>
+
+      <div class="project-foot">
+        <a href="https://github.com/FrancieleSZ/sistema-loja-python-mysql" target="_blank" rel="noopener">→ ver repositório no GitHub</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="formacao">
+    <div class="eyebrow">$ cat formacao.txt</div>
+    <h2>Formação</h2>
+    <div class="edu-row">
+      <span class="edu-dot"></span>
+      <div>
+        <div class="etitle">Ciência da Computação — Unicid</div>
+        <div class="esub">Previsão de conclusão: dezembro de 2029</div>
+        <span class="estatus">cursando</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="contato">
+    <div class="eyebrow">$ ./contato --enviar</div>
+    <h2>Vamos conversar</h2>
+    <div class="contact-wrap">
+      <p class="about-text">Estou aberta a oportunidades de estágio ou posições júnior em back-end. Se meu perfil combina com o que você procura, me chama:</p>
+      <div class="contact-links">
+        <a class="contact-link" href="mailto:francielesouzadejesus04@gmail.com">
+          <div><div class="clabel">E-mail</div><div class="cvalue">francielesouzadejesus04@gmail.com</div></div>
+          <span class="arrow">↗</span>
+        </a>
+        <a class="contact-link" href="https://wa.me/5511917217364" target="_blank" rel="noopener">
+          <div><div class="clabel">Telefone / WhatsApp</div><div class="cvalue">(11) 91721-7364</div></div>
+          <span class="arrow">↗</span>
+        </a>
+        <a class="contact-link" href="https://www.linkedin.com/in/franciele-souza-de-jesus-7525ab3b9" target="_blank" rel="noopener">
+          <div><div class="clabel">LinkedIn</div><div class="cvalue">/in/franciele-souza-de-jesus-7525ab3b9</div></div>
+          <span class="arrow">↗</span>
+        </a>
+        <a class="contact-link" href="https://github.com/FrancieleSZ" target="_blank" rel="noopener">
+          <div><div class="clabel">GitHub</div><div class="cvalue">@FrancieleSZ</div></div>
+          <span class="arrow">↗</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <span class="foot-cursor">$</span> echo "obrigada pela visita" — Franciele Souza de Jesus, 2026
+</footer>
+
+</body>
+</html>
