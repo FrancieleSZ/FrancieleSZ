@@ -1,4 +1,4 @@
-<div data-importer="border">
+<div data-importer="border" align="center">
   <img style="100%" src="https://capsule-render.vercel.app/api?type=waving&height=100&section=header&reversal=true&text=Developer&fontSize=70&fontColor=FFFFFF&fontAlign=50&fontAlignY=50&stroke=-&animation=fadeIn&descSize=100&descAlign=100&descAlignY=100&color=gradient"  />
 </div>
 
