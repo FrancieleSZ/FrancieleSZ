@@ -17,7 +17,7 @@
 
 ###
 
-<h1 data-importer="text" align="center">Seja bem vindo👋</h1>
+<h1 data-importer="text" align="center">Seja bem vindo 👾​</h1>
 
 ###
 
