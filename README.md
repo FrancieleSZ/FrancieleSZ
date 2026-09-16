@@ -1,5 +1,5 @@
 <div data-importer="image" align="center">
-  <img data-importer="image" align="right" height="150" src="https://i.imgflip.com/65efzo.gif"  />
+  <img data-importer="image" align="center" height="150" src="https://i.imgflip.com/65efzo.gif"  />
 </div>
 
 ###
@@ -46,5 +46,9 @@
 ###
 
 <h3 data-importer="text" align="left">🔥   Meus status:</h3>
+
+###
+
+ <img data-importer="image" align="right" height="150" src="https://i.imgflip.com/65efzo.gif"  />
 
 ###
