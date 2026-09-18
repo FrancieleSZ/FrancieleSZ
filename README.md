@@ -61,10 +61,13 @@
 
 ###
 
-<picture data-importer="pacman">
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/https://github.com/FrancieleSZ/https://github.com/FrancieleSZ/pacman-output/galaga-contribution-graph-dark.svg?game=galaga">
-  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/https://github.com/FrancieleSZ/https://github.com/FrancieleSZ/pacman-output/galaga-contribution-graph.svg?game=galaga">
-  <img alt="pacman contribution graph" src="https://raw.githubusercontent.com/https://github.com/FrancieleSZ/https://github.com/FrancieleSZ/pacman-output/galaga-contribution-graph.svg?game=galaga">
+## Meu gráfico de contribuições
+
+<!-- pacman -->
+<picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/FrancieleSZ/FrancieleSZ/output/pacman-contribution-graph-dark.svg">
+    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/FrancieleSZ/FrancieleSZ/output/pacman-contribution-graph.svg">
+    <img alt="pacman contribution graph" src="https://raw.githubusercontent.com/FrancieleSZ/FrancieleSZ/output/pacman-contribution-graph.svg">
 </picture>
 
 ###
