@@ -3,33 +3,36 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Franciele Souza de Jesus — Desenvolvedora Back-end e Analista de dados</title>
+<title>Franciele Souza de Jesus — Dev Back-end &amp; Dados</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Karla:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg: #0B0F14;
-    --surface: #121821;
-    --surface-2: #171F2A;
-    --border: #232D3B;
-    --text: #E6EDF3;
-    --muted: #7D8A9C;
-    --teal: #4FD1C5;
-    --amber: #F2B84B;
-    --font-display: 'JetBrains Mono', monospace;
-    --font-body: 'Inter', sans-serif;
+    --bg: #FFF3F6;
+    --bg-soft: #FFE9EF;
+    --surface: #FFFFFF;
+    --border: #FBD3DF;
+    --border-strong: #F6A9C1;
+    --ink: #3E2A38;
+    --muted: #9A7E8E;
+    --rose: #EC5C86;
+    --rose-deep: #C93F68;
+    --lilac: #8E6FD9;
+    --mint: #4FBFA2;
+    --font-display: 'Quicksand', sans-serif;
+    --font-body: 'Karla', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
   }
 
   *{ margin:0; padding:0; box-sizing:border-box; }
-
   html{ scroll-behavior:smooth; }
 
   body{
     background:var(--bg);
-    color:var(--text);
+    color:var(--ink);
     font-family:var(--font-body);
-    line-height:1.6;
+    line-height:1.65;
     -webkit-font-smoothing:antialiased;
   }
 
@@ -38,464 +41,274 @@
   }
 
   a{ color:inherit; text-decoration:none; }
-  ::selection{ background:var(--teal); color:#0B0F14; }
+  ::selection{ background:var(--rose); color:#fff; }
+  :focus-visible{ outline:2px solid var(--rose-deep); outline-offset:3px; }
 
-  :focus-visible{
-    outline:2px solid var(--teal);
-    outline-offset:3px;
-  }
+  .container{ max-width:880px; margin:0 auto; padding:0 24px; position:relative; z-index:1; }
 
-  /* background schema pattern */
-  .schema-bg{
+  /* soft blob backdrop */
+  .blobs{ position:fixed; inset:0; z-index:0; overflow:hidden; pointer-events:none; }
+  .blob{ position:absolute; border-radius:50%; filter:blur(60px); opacity:0.22; }
+  .blob-1{ width:420px; height:420px; background:#FBC7DA; top:-140px; right:-120px; }
+  .blob-2{ width:340px; height:340px; background:#DCD1F7; bottom:120px; left:-140px; }
+  .blob-3{ width:260px; height:260px; background:#BDEDE0; bottom:-100px; right:10%; }
+
+  /* interactive constellation canvas */
+  #constellation{ position:fixed; inset:0; z-index:0; pointer-events:none; }
+
+  /* cursor glow that follows the mouse */
+  .cursor-glow{
     position:fixed;
-    inset:0;
-    z-index:0;
-    opacity:0.35;
+    width:280px; height:280px;
+    border-radius:50%;
+    background:radial-gradient(circle, rgba(236,92,134,0.16), rgba(142,111,217,0.09) 45%, transparent 72%);
+    pointer-events:none;
+    z-index:2;
+    top:0; left:0;
+    transform:translate(-50%,-50%);
+    will-change:transform;
+    transition:opacity 0.25s ease;
+  }
+  @media (hover:none){ .cursor-glow{ display:none; } }
+
+  /* tilt + spotlight for interactive cards */
+  .tilt{
+    --mx:50%; --my:50%;
+    position:relative;
+    transform-style:preserve-3d;
+    transition:transform 0.12s ease-out, box-shadow 0.2s ease;
+  }
+  .tilt::after{
+    content:'';
+    position:absolute; inset:0;
+    border-radius:inherit;
+    background:radial-gradient(220px circle at var(--mx) var(--my), rgba(236,92,134,0.16), transparent 65%);
+    opacity:0;
+    transition:opacity 0.25s ease;
     pointer-events:none;
   }
+  .tilt:hover::after{ opacity:1; }
+  @media (hover:none){ .tilt{ transform:none !important; } .tilt::after{ display:none; } }
 
-  .container{
-    max-width:920px;
-    margin:0 auto;
-    padding:0 24px;
-    position:relative;
-    z-index:1;
-  }
+  /* magnetic buttons */
+  .btn{ will-change:transform; }
 
   /* NAV */
   nav{
-    position:sticky;
-    top:0;
-    z-index:50;
-    background:rgba(11,15,20,0.85);
+    position:sticky; top:0; z-index:50;
+    background:rgba(255,243,246,0.88);
     backdrop-filter:blur(8px);
     border-bottom:1px solid var(--border);
   }
   .nav-inner{
-    max-width:920px;
-    margin:0 auto;
-    padding:16px 24px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
+    max-width:880px; margin:0 auto; padding:18px 24px;
+    display:flex; justify-content:space-between; align-items:center;
   }
-  .nav-logo{
-    font-family:var(--font-display);
-    font-weight:700;
-    font-size:14px;
-    color:var(--teal);
-  }
-  .nav-links{
-    display:flex;
-    gap:28px;
-    font-family:var(--font-display);
-    font-size:13px;
-    color:var(--muted);
-  }
+  .nav-logo{ font-family:var(--font-display); font-weight:700; font-size:16px; color:var(--rose-deep); }
+  .nav-links{ display:flex; gap:26px; font-family:var(--font-display); font-weight:600; font-size:14px; color:var(--muted); }
   .nav-links a{ transition:color 0.2s; }
-  .nav-links a:hover{ color:var(--text); }
-  .nav-toggle{ display:none; }
-
-  @media (max-width:640px){
-    .nav-links{ gap:16px; font-size:11px; }
-  }
+  .nav-links a:hover{ color:var(--rose-deep); }
+  @media (max-width:600px){ .nav-links{ gap:14px; font-size:12.5px; } }
 
   /* HERO */
-  .hero{
-    min-height:88vh;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    padding:80px 0 60px;
-  }
+  .hero{ min-height:82vh; display:flex; flex-direction:column; justify-content:center; padding:70px 0 50px; }
 
-  .terminal{
-    background:var(--surface);
-    border:1px solid var(--border);
-    border-radius:10px;
-    overflow:hidden;
-    box-shadow:0 20px 60px -20px rgba(0,0,0,0.6);
-  }
-
-  .terminal-bar{
-    display:flex;
-    align-items:center;
-    gap:8px;
-    padding:12px 16px;
-    background:var(--surface-2);
-    border-bottom:1px solid var(--border);
-  }
-  .dot{ width:11px; height:11px; border-radius:50%; }
-  .dot.red{ background:#FF5F57; }
-  .dot.yellow{ background:#FEBC2E; }
-  .dot.green{ background:#28C840; }
-  .terminal-title{
-    margin-left:8px;
-    font-family:var(--font-display);
-    font-size:12px;
-    color:var(--muted);
-  }
-
-  .terminal-body{
-    padding:28px 24px 32px;
-    font-family:var(--font-display);
-  }
-
-  .prompt-line{
-    display:flex;
-    gap:10px;
-    margin-bottom:6px;
-    font-size:14px;
-    color:var(--muted);
-  }
-  .prompt-line .sym{ color:var(--teal); }
-
-  .hero h1{
-    font-family:var(--font-display);
-    font-size:clamp(28px, 5vw, 46px);
-    font-weight:800;
-    line-height:1.15;
-    margin:14px 0 6px;
-    color:var(--text);
-  }
-
-  .hero .role{
-    font-family:var(--font-display);
-    font-size:clamp(14px,2vw,17px);
-    color:var(--amber);
-    margin-bottom:18px;
-  }
-
-  .cursor{
-    display:inline-block;
-    width:10px;
-    height:1.1em;
-    background:var(--amber);
-    margin-left:4px;
-    vertical-align:text-bottom;
-    animation:blink 1s step-end infinite;
-  }
-  @keyframes blink{ 50%{ opacity:0; } }
-
-  .hero p.desc{
-    max-width:520px;
-    color:var(--muted);
-    font-size:15.5px;
-    margin-bottom:26px;
-  }
-
-  .hero-actions{
-    display:flex;
-    gap:14px;
-    flex-wrap:wrap;
-  }
-
-  .btn{
-    font-family:var(--font-display);
+  .hero .hi{
+    font-family:var(--font-mono);
     font-size:13px;
-    font-weight:600;
-    padding:12px 20px;
-    border-radius:6px;
+    color:var(--mint);
+    background:rgba(79,191,162,0.12);
+    border:1px solid rgba(79,191,162,0.35);
     display:inline-flex;
     align-items:center;
     gap:8px;
-    transition:transform 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+    padding:6px 14px;
+    border-radius:999px;
+    margin-bottom:22px;
+    width:fit-content;
   }
-  .btn-primary{
-    background:var(--teal);
-    color:#08141A;
-  }
-  .btn-primary:hover{ transform:translateY(-2px); background:#63e0d4; }
-  .btn-outline{
-    border:1px solid var(--border);
-    color:var(--text);
-  }
-  .btn-outline:hover{ border-color:var(--teal); color:var(--teal); transform:translateY(-2px); }
+  .hi .pulse{ width:7px; height:7px; border-radius:50%; background:var(--mint); animation:pulse 1.8s ease-in-out infinite; }
+  @keyframes pulse{ 0%,100%{ opacity:1; } 50%{ opacity:0.35; } }
 
-  /* SECTION SHARED */
-  section{ padding:90px 0; border-top:1px solid var(--border); }
-  .eyebrow{
+  .hero h1{
     font-family:var(--font-display);
-    font-size:12px;
-    color:var(--teal);
-    letter-spacing:0.06em;
+    font-weight:700;
+    font-size:clamp(34px, 6vw, 54px);
+    line-height:1.08;
+    color:var(--ink);
     margin-bottom:10px;
-    display:flex;
+  }
+  .hero h1 .accent{ color:var(--rose-deep); }
+
+  .hero .role{
+    font-family:var(--font-mono);
+    font-size:clamp(14px,2vw,16px);
+    color:var(--lilac);
+    margin-bottom:20px;
+  }
+
+  .hero p.desc{ max-width:540px; color:var(--muted); font-size:16px; margin-bottom:30px; }
+
+  .hero-actions{ display:flex; gap:14px; flex-wrap:wrap; }
+
+  .btn{
+    font-family:var(--font-display);
+    font-weight:700;
+    font-size:14.5px;
+    padding:13px 24px;
+    border-radius:999px;
+    display:inline-flex;
     align-items:center;
     gap:8px;
+    transition:transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
   }
-  .eyebrow::before{
-    content:'';
-    width:16px;
-    height:1px;
-    background:var(--teal);
+  .btn-primary{ background:var(--rose); color:#fff; box-shadow:0 10px 24px -10px rgba(236,92,134,0.6); }
+  .btn-primary:hover{ transform:translateY(-2px); background:var(--rose-deep); }
+  .btn-outline{ border:2px solid var(--border-strong); color:var(--rose-deep); background:var(--surface); }
+  .btn-outline:hover{ transform:translateY(-2px); border-color:var(--rose-deep); }
+
+  /* SECTION SHARED */
+  section{ padding:80px 0; border-top:1px dashed var(--border); }
+  .eyebrow{
+    font-family:var(--font-mono);
+    font-size:12.5px;
+    color:var(--mint);
+    margin-bottom:12px;
   }
   h2{
     font-family:var(--font-display);
-    font-size:clamp(22px,3.4vw,30px);
     font-weight:700;
+    font-size:clamp(24px,3.6vw,32px);
     margin-bottom:28px;
+    color:var(--ink);
   }
 
   /* ABOUT */
-  .about-text{
-    color:var(--muted);
-    font-size:16px;
-    max-width:640px;
-  }
-  .about-text strong{ color:var(--text); font-weight:600; }
+  .about-text{ color:var(--muted); font-size:16px; max-width:640px; }
+  .about-text strong{ color:var(--ink); font-weight:700; }
 
-  .info-grid{
-    margin-top:36px;
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:16px;
-  }
+  .info-grid{ margin-top:32px; display:grid; grid-template-columns:repeat(2,1fr); gap:16px; }
   @media (max-width:600px){ .info-grid{ grid-template-columns:1fr; } }
 
   .info-card{
     background:var(--surface);
     border:1px solid var(--border);
-    border-radius:8px;
-    padding:18px 20px;
+    border-radius:16px;
+    padding:20px 22px;
+    box-shadow:0 6px 18px -10px rgba(236,92,134,0.18);
   }
-  .info-card .label{
-    font-family:var(--font-display);
-    font-size:11px;
-    color:var(--muted);
-    text-transform:uppercase;
-    letter-spacing:0.05em;
-    margin-bottom:6px;
-  }
-  .info-card .value{ font-size:14.5px; color:var(--text); }
+  .info-card .label{ font-family:var(--font-mono); font-size:11px; color:var(--muted); margin-bottom:8px; }
+  .info-card .value{ font-size:15px; color:var(--ink); font-weight:600; }
 
   /* SKILLS */
-  .skills-grid{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:14px;
-  }
-  @media (max-width:640px){ .skills-grid{ grid-template-columns:1fr 1fr; } }
-  @media (max-width:420px){ .skills-grid{ grid-template-columns:1fr; } }
+  .skills-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+  @media (max-width:660px){ .skills-grid{ grid-template-columns:1fr 1fr; } }
+  @media (max-width:440px){ .skills-grid{ grid-template-columns:1fr; } }
 
   .skill-card{
     background:var(--surface);
     border:1px solid var(--border);
-    border-radius:8px;
+    border-radius:16px;
     padding:20px 18px;
-    transition:border-color 0.2s, transform 0.2s;
+    transition:border-color 0.2s, transform 0.2s, box-shadow 0.2s;
   }
-  .skill-card:hover{ border-color:var(--teal); transform:translateY(-3px); }
-  .skill-card .k{
-    font-family:var(--font-display);
-    font-weight:700;
-    font-size:16px;
-    color:var(--text);
-    margin-bottom:6px;
-    display:block;
-  }
-  .skill-card .v{
-    font-size:13px;
-    color:var(--muted);
-  }
+  .skill-card:hover{ border-color:var(--rose); transform:translateY(-4px); box-shadow:0 14px 26px -14px rgba(236,92,134,0.4); }
+  .skill-card .k{ font-family:var(--font-display); font-weight:700; font-size:16.5px; color:var(--ink); margin-bottom:6px; display:block; }
+  .skill-card .v{ font-size:13.3px; color:var(--muted); }
   .skill-card .tag{
-    display:inline-block;
-    margin-top:10px;
-    font-family:var(--font-display);
-    font-size:11px;
-    color:var(--amber);
-    border:1px solid rgba(242,184,75,0.3);
-    padding:3px 8px;
-    border-radius:4px;
+    display:inline-block; margin-top:12px;
+    font-family:var(--font-mono); font-size:10.5px;
+    padding:4px 10px; border-radius:999px;
   }
+  .tag-pratica{ color:var(--rose-deep); background:rgba(236,92,134,0.12); }
+  .tag-aprendendo{ color:var(--lilac); background:rgba(142,111,217,0.14); }
+  .tag-faculdade{ color:var(--mint); background:rgba(79,191,162,0.14); }
 
   /* PROJECT */
-  .project-card{
-    background:var(--surface);
-    border:1px solid var(--border);
-    border-radius:10px;
-    overflow:hidden;
-  }
-  .project-head{
-    padding:26px 26px 0;
-  }
-  .project-head .ptitle{
-    font-family:var(--font-display);
-    font-size:20px;
-    font-weight:700;
-    color:var(--text);
-    margin-bottom:8px;
-  }
-  .project-head .pdesc{
-    color:var(--muted);
-    font-size:14.5px;
-    max-width:560px;
-    margin-bottom:18px;
-  }
+  .project-card{ background:var(--surface); border:1px solid var(--border); border-radius:20px; overflow:hidden; box-shadow:0 14px 30px -18px rgba(142,111,217,0.3); }
+  .project-head{ padding:28px 28px 0; }
+  .project-head .ptitle{ font-family:var(--font-display); font-size:21px; font-weight:700; color:var(--ink); margin-bottom:8px; }
+  .project-head .pdesc{ color:var(--muted); font-size:14.5px; max-width:560px; margin-bottom:18px; }
 
   .schema-strip{
-    margin:0 26px 22px;
-    background:var(--bg);
+    margin:0 28px 22px;
+    background:var(--bg-soft);
     border:1px solid var(--border);
-    border-radius:8px;
+    border-radius:12px;
     padding:16px 18px;
-    font-family:var(--font-display);
-    font-size:12.5px;
+    font-family:var(--font-mono);
+    font-size:12.3px;
     color:var(--muted);
     overflow-x:auto;
   }
-  .schema-strip .tbl{ color:var(--teal); }
-  .schema-strip .col{ color:var(--text); }
+  .schema-strip .tbl{ color:var(--rose-deep); font-weight:600; }
 
-  .feature-list{
-    margin:0 26px 22px;
-    display:grid;
-    gap:10px;
-  }
-  .feature-list li{
-    list-style:none;
-    display:flex;
-    gap:10px;
-    font-size:14px;
-    color:var(--muted);
-  }
-  .feature-list li::before{
-    content:'▸';
-    color:var(--amber);
-    flex-shrink:0;
-  }
+  .feature-list{ margin:0 28px 22px; display:grid; gap:10px; }
+  .feature-list li{ list-style:none; display:flex; gap:10px; font-size:14px; color:var(--muted); }
+  .feature-list li::before{ content:'♡'; color:var(--rose); flex-shrink:0; }
 
-  .stack-row{
-    margin:0 26px 26px;
-    display:flex;
-    gap:8px;
-    flex-wrap:wrap;
-  }
+  .stack-row{ margin:0 28px 26px; display:flex; gap:8px; flex-wrap:wrap; }
   .chip{
-    font-family:var(--font-display);
-    font-size:11.5px;
-    padding:5px 10px;
-    border-radius:5px;
-    background:var(--surface-2);
-    border:1px solid var(--border);
-    color:var(--text);
+    font-family:var(--font-mono); font-size:11.5px; padding:6px 12px;
+    border-radius:999px; background:var(--bg-soft); border:1px solid var(--border); color:var(--ink);
   }
 
-  .project-foot{
-    border-top:1px solid var(--border);
-    padding:16px 26px;
-    display:flex;
-    gap:20px;
-    background:var(--surface-2);
+  .project-foot{ border-top:1px solid var(--border); padding:16px 28px; display:flex; gap:20px; background:var(--bg-soft); }
+  .project-foot a{ font-family:var(--font-display); font-weight:700; font-size:13.5px; color:var(--rose-deep); display:flex; align-items:center; gap:6px; transition:opacity 0.2s; }
+  .project-foot a:hover{ opacity:0.7; }
+
+  /* GITHUB CTA */
+  .gh-card{
+    margin-top:18px;
+    display:flex; justify-content:space-between; align-items:center;
+    background:var(--surface); border:1px solid var(--border); border-radius:16px;
+    padding:18px 22px; transition:border-color 0.2s, transform 0.2s;
   }
-  .project-foot a{
-    font-family:var(--font-display);
-    font-size:13px;
-    color:var(--teal);
-    display:flex;
-    align-items:center;
-    gap:6px;
-    transition:opacity 0.2s;
-  }
-  .project-foot a:hover{ opacity:0.75; }
+  .gh-card:hover{ border-color:var(--rose); transform:translateX(4px); }
+  .gh-card .glabel{ font-family:var(--font-mono); font-size:11px; color:var(--muted); }
+  .gh-card .gvalue{ font-size:15px; font-weight:600; margin-top:3px; color:var(--ink); }
+  .gh-card .arrow{ color:var(--rose-deep); font-family:var(--font-mono); font-size:18px; }
 
   /* EDUCATION */
-  .edu-row{
-    display:flex;
-    gap:18px;
-    align-items:flex-start;
-    background:var(--surface);
-    border:1px solid var(--border);
-    border-radius:8px;
-    padding:20px 22px;
-  }
-  .edu-dot{
-    width:10px; height:10px; border-radius:50%;
-    background:var(--teal);
-    margin-top:6px;
-    flex-shrink:0;
-  }
-  .edu-row .etitle{ font-weight:600; font-size:15.5px; margin-bottom:4px; }
+  .edu-row{ display:flex; gap:18px; align-items:flex-start; background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:22px 24px; }
+  .edu-dot{ width:10px; height:10px; border-radius:50%; background:var(--rose); margin-top:6px; flex-shrink:0; }
+  .edu-row .etitle{ font-family:var(--font-display); font-weight:700; font-size:16px; margin-bottom:4px; }
   .edu-row .esub{ font-size:13.5px; color:var(--muted); }
   .edu-row .estatus{
-    margin-top:8px;
-    display:inline-block;
-    font-family:var(--font-display);
-    font-size:11px;
-    color:var(--amber);
-    border:1px solid rgba(242,184,75,0.3);
-    padding:2px 8px;
-    border-radius:4px;
+    margin-top:10px; display:inline-block;
+    font-family:var(--font-mono); font-size:11px; color:var(--lilac);
+    background:rgba(142,111,217,0.12); padding:3px 10px; border-radius:999px;
   }
 
   /* CONTACT */
-  .contact-wrap{
-    text-align:left;
-  }
-  .contact-links{
-    margin-top:26px;
-    display:grid;
-    gap:12px;
-  }
+  .contact-links{ margin-top:26px; display:grid; gap:12px; }
   .contact-link{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    background:var(--surface);
-    border:1px solid var(--border);
-    border-radius:8px;
-    padding:16px 20px;
-    transition:border-color 0.2s, transform 0.2s;
+    display:flex; justify-content:space-between; align-items:center;
+    background:var(--surface); border:1px solid var(--border); border-radius:16px;
+    padding:17px 22px; transition:border-color 0.2s, transform 0.2s;
   }
-  .contact-link:hover{ border-color:var(--teal); transform:translateX(4px); }
-  .contact-link .clabel{
-    font-family:var(--font-display);
-    font-size:11px;
-    color:var(--muted);
-    text-transform:uppercase;
-    letter-spacing:0.05em;
-  }
-  .contact-link .cvalue{ font-size:15px; margin-top:3px; }
-  .contact-link .arrow{ color:var(--teal); font-family:var(--font-display); }
+  .contact-link:hover{ border-color:var(--rose); transform:translateX(4px); }
+  .contact-link .clabel{ font-family:var(--font-mono); font-size:11px; color:var(--muted); }
+  .contact-link .cvalue{ font-size:15px; margin-top:3px; font-weight:600; }
+  .contact-link .arrow{ color:var(--rose-deep); font-family:var(--font-mono); }
 
-  footer{
-    padding:36px 0 50px;
-    text-align:center;
-    color:var(--muted);
-    font-family:var(--font-display);
-    font-size:12px;
-    border-top:1px solid var(--border);
-  }
-  footer .foot-cursor{ color:var(--teal); }
+  footer{ padding:40px 0 56px; text-align:center; color:var(--muted); font-family:var(--font-mono); font-size:12px; border-top:1px dashed var(--border); }
+  footer .heart{ color:var(--rose); }
 </style>
 </head>
 <body>
 
-<svg class="schema-bg" viewBox="0 0 1200 1600" preserveAspectRatio="xMidYMin slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-  <g stroke="#1B2531" stroke-width="1" fill="none">
-    <line x1="200" y1="120" x2="200" y2="900"/>
-    <line x1="200" y1="900" x2="450" y2="900"/>
-    <line x1="980" y1="200" x2="980" y2="1400"/>
-    <line x1="700" y1="1400" x2="980" y2="1400"/>
-    <line x1="60" y1="1200" x2="360" y2="1200"/>
-    <line x1="360" y1="1200" x2="360" y2="1500"/>
-  </g>
-  <g fill="#1B2531">
-    <circle cx="200" cy="120" r="3"/>
-    <circle cx="200" cy="900" r="3"/>
-    <circle cx="450" cy="900" r="3"/>
-    <circle cx="980" cy="200" r="3"/>
-    <circle cx="980" cy="1400" r="3"/>
-    <circle cx="700" cy="1400" r="3"/>
-    <circle cx="60" cy="1200" r="3"/>
-    <circle cx="360" cy="1200" r="3"/>
-    <circle cx="360" cy="1500" r="3"/>
-  </g>
-</svg>
+<div class="blobs" aria-hidden="true">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+</div>
+<canvas id="constellation" aria-hidden="true"></canvas>
+<div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
 
 <nav>
   <div class="nav-inner">
-    <div class="nav-logo">franciele.dev</div>
+    <div class="nav-logo">franciele.dev ✦</div>
     <div class="nav-links">
       <a href="#sobre">sobre</a>
       <a href="#skills">skills</a>
@@ -508,82 +321,79 @@
 <main class="container">
 
   <section class="hero" id="topo">
-    <div class="terminal">
-      <div class="terminal-bar">
-        <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
-        <span class="terminal-title">franciele@portifolio: ~</span>
-      </div>
-      <div class="terminal-body">
-        <div class="prompt-line"><span class="sym">$</span> whoami</div>
-        <h1>Franciele Souza de Jesus</h1>
-        <div class="role">&gt; desenvolvedora back-end e Analista de Dados em formação<span class="cursor"></span></div>
-        <p class="desc">Estudante de Ciência da Computação, com foco em back-end, Analista de dados e banco de dados. Gosto de entender como os dados fluem por um sistema — da modelagem ao SQL que faz tudo funcionar. Em busca da minha primeira oportunidade na área.</p>
-        <div class="hero-actions">
-          <a class="btn btn-primary" href="#projeto">ver projeto →</a>
-          <a class="btn btn-outline" href="#contato">entrar em contato</a>
-        </div>
-      </div>
+    <div class="hi"><span class="pulse"></span> disponível para estágio e vagas júnior</div>
+    <h1>Oi, eu sou a <span class="accent">Franciele</span> 🎀</h1>
+    <div class="role">dev back-end &amp; analista de dados em formação</div>
+    <p class="desc">Estudante de Ciência da Computação apaixonada por entender como os dados se movem dentro de um sistema — da modelagem no papel até o SQL que faz tudo funcionar. Hoje estou expandindo do Python para Java e Spring Boot, sempre com Git guardando cada passo do caminho.</p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="#projeto">ver meu projeto →</a>
+      <a class="btn btn-outline" href="#contato">bora conversar</a>
     </div>
   </section>
 
   <section id="sobre">
-    <div class="eyebrow">$ cat sobre.txt</div>
-    <h2>Sobre mim</h2>
+    <div class="eyebrow">// sobre mim</div>
+    <h2>Um pouco da minha jornada</h2>
     <p class="about-text">
-      Sou <strong>Franciele</strong>, estudante de <strong>Ciência da Computação na Unicid</strong>, com previsão de conclusão em <strong>dezembro de 2029</strong>. Estou construindo minha base em back-end — lógica, estruturação de dados e SQL — e buscando meu primeiro passo profissional na área de tecnologia. Gosto de projetos que envolvem organizar informação de forma clara e confiável, e é isso que venho praticando nos meus estudos.
+      Sou a <strong>Franciele</strong>, estudante de <strong>Ciência da Computação na Unicid</strong>, com previsão de conclusão em <strong>dezembro de 2029</strong>. Comecei minha base em Python e banco de dados, e agora estou dando os primeiros passos em <strong>Java</strong> e <strong>Spring Boot</strong> — aprendendo a construir APIs de verdade e organizando cada evolução com <strong>Git</strong>. Gosto de projetos que envolvem transformar informação bagunçada em algo claro e confiável, e é isso que venho praticando todos os dias.
     </p>
     <div class="info-grid">
-      <div class="info-card">
-        <div class="label">Foco atual</div>
-        <div class="value">Back-end/Analista de Dados · Python · SQL · UML</div>
+      <div class="info-card tilt">
+        <div class="label">foco atual</div>
+        <div class="value">Java · Spring Boot · SQL · Git</div>
       </div>
-      <div class="info-card">
-        <div class="label">Status</div>
-        <div class="value">Em busca de oportunidades (estágio/júnior)</div>
+      <div class="info-card tilt">
+        <div class="label">status</div>
+        <div class="value">em busca de oportunidades (estágio/júnior)</div>
       </div>
     </div>
   </section>
 
   <section id="skills">
-    <div class="eyebrow">$ cat skills.txt</div>
-    <h2>Tecnologias</h2>
+    <div class="eyebrow">// tecnologias</div>
+    <h2>O que eu venho estudando</h2>
     <div class="skills-grid">
-      <div class="skill-card">
+      <div class="skill-card tilt">
         <span class="k">Python</span>
         <span class="v">Lógica de programação, scripts e integração com banco de dados.</span>
-        <span class="tag">em prática</span>
+        <span class="tag tag-pratica">em prática</span>
       </div>
-      <div class="skill-card">
+      <div class="skill-card tilt">
         <span class="k">Java</span>
-        <span class="v">Noções básicas de sintaxe e lógica de programação.</span>
-        <span class="tag">nível básico</span>
+        <span class="v">Sintaxe, orientação a objetos e lógica de programação aplicada.</span>
+        <span class="tag tag-aprendendo">aprendendo</span>
       </div>
-      <div class="skill-card">
+      <div class="skill-card tilt">
+        <span class="k">Spring Boot</span>
+        <span class="v">Primeiros passos criando APIs REST e estruturando back-end em Java.</span>
+        <span class="tag tag-aprendendo">aprendendo</span>
+      </div>
+      <div class="skill-card tilt">
         <span class="k">SQL</span>
         <span class="v">Modelagem, consultas e manipulação de dados relacionais.</span>
-        <span class="tag">em prática</span>
+        <span class="tag tag-pratica">em prática</span>
       </div>
-      <div class="skill-card">
+      <div class="skill-card tilt">
+        <span class="k">Git &amp; GitHub</span>
+        <span class="v">Versionamento de projetos, commits organizados e repositórios públicos.</span>
+        <span class="tag tag-pratica">em prática</span>
+      </div>
+      <div class="skill-card tilt">
         <span class="k">UML &amp; Diagramas</span>
-        <span class="v">Documentação de sistemas com diagramas de caso de uso, classes e fluxo.</span>
-        <span class="tag">faculdade</span>
-      </div>
-      <div class="skill-card">
-        <span class="k">Acessibilidade</span>
-        <span class="v">Noções de leis e diretrizes de acessibilidade digital (WCAG) aplicadas ao desenvolvimento.</span>
-        <span class="tag">faculdade</span>
+        <span class="v">Documentação de sistemas com casos de uso, classes e fluxos.</span>
+        <span class="tag tag-faculdade">faculdade</span>
       </div>
     </div>
   </section>
 
   <section id="projeto">
-    <div class="eyebrow">$ git log --oneline</div>
-    <h2>Projeto em destaque</h2>
+    <div class="eyebrow">// projeto em destaque</div>
+    <h2>sistema-loja-python-mysql</h2>
 
-    <div class="project-card">
+    <div class="project-card tilt">
       <div class="project-head">
-        <div class="ptitle">sistema-loja-python-mysql</div>
-        <p class="pdesc">Sistema de linha de comando para gestão de uma loja: registra vendas, calcula descontos e totais, cadastra e consulta funcionários, e gera relatórios de faturamento por data. Toda a persistência é feita em um banco MySQL, com credenciais protegidas por variáveis de ambiente.</p>
+        <div class="ptitle">Sistema de gestão de loja via linha de comando</div>
+        <p class="pdesc">Registra vendas, calcula descontos e totais, cadastra e consulta funcionários, e gera relatórios de faturamento por data. Toda a persistência é feita em um banco MySQL, com credenciais protegidas por variáveis de ambiente.</p>
       </div>
 
       <div class="schema-strip">
@@ -595,7 +405,7 @@
         <li>Cadastro de vendas com validação de entrada (preço, ID, desconto) e cálculo automático do total.</li>
         <li>Relatório de vendas por data, com soma do lucro total do dia.</li>
         <li>CRUD de funcionários: cadastro, busca por ID e remoção.</li>
-        <li>Conexão segura com MySQL usando <code>python-dotenv</code> para não expor a senha no código.</li>
+        <li>Conexão segura com MySQL usando python-dotenv para não expor a senha no código.</li>
       </ul>
 
       <div class="stack-row">
@@ -609,11 +419,19 @@
         <a href="https://github.com/FrancieleSZ/sistema-loja-python-mysql" target="_blank" rel="noopener">→ ver repositório no GitHub</a>
       </div>
     </div>
+
+    <a class="gh-card tilt" href="https://github.com/FrancieleSZ" target="_blank" rel="noopener">
+      <div>
+        <div class="glabel">mais projetos e commits</div>
+        <div class="gvalue">github.com/FrancieleSZ</div>
+      </div>
+      <span class="arrow">↗</span>
+    </a>
   </section>
 
   <section id="formacao">
-    <div class="eyebrow">$ cat formacao.txt</div>
-    <h2>Formação</h2>
+    <div class="eyebrow">// formação</div>
+    <h2>Onde estou estudando</h2>
     <div class="edu-row">
       <span class="edu-dot"></span>
       <div>
@@ -625,36 +443,168 @@
   </section>
 
   <section id="contato">
-    <div class="eyebrow">$ ./contato --enviar</div>
-    <h2>Vamos conversar</h2>
-    <div class="contact-wrap">
-      <p class="about-text">Estou aberta a oportunidades de estágio ou posições júnior em back-end e Analise de dados. Se meu perfil combina com o que você procura, me chama:</p>
-      <div class="contact-links">
-        <a class="contact-link" href="mailto:francielesouzadejesus04@gmail.com">
-          <div><div class="clabel">E-mail</div><div class="cvalue">francielesouzadejesus04@gmail.com</div></div>
-          <span class="arrow">↗</span>
-        </a>
-        <a class="contact-link" href="https://wa.me/5511917217364" target="_blank" rel="noopener">
-          <div><div class="clabel">Telefone / WhatsApp</div><div class="cvalue">(11) 91721-7364</div></div>
-          <span class="arrow">↗</span>
-        </a>
-        <a class="contact-link" href="https://www.linkedin.com/in/franciele-souza-de-jesus-7525ab3b9" target="_blank" rel="noopener">
-          <div><div class="clabel">LinkedIn</div><div class="cvalue">/in/franciele-souza-de-jesus-7525ab3b9</div></div>
-          <span class="arrow">↗</span>
-        </a>
-        <a class="contact-link" href="https://github.com/FrancieleSZ" target="_blank" rel="noopener">
-          <div><div class="clabel">GitHub</div><div class="cvalue">@FrancieleSZ</div></div>
-          <span class="arrow">↗</span>
-        </a>
-      </div>
+    <div class="eyebrow">// contato</div>
+    <h2>Vamos conversar?</h2>
+    <p class="about-text">Estou aberta a oportunidades de estágio ou posições júnior em back-end e análise de dados. Se meu perfil combina com o que você procura, me chama:</p>
+    <div class="contact-links">
+      <a class="contact-link tilt" href="mailto:francielesouzadejesus04@gmail.com">
+        <div><div class="clabel">e-mail</div><div class="cvalue">francielesouzadejesus04@gmail.com</div></div>
+        <span class="arrow">↗</span>
+      </a>
+      <a class="contact-link tilt" href="https://wa.me/5511917217364" target="_blank" rel="noopener">
+        <div><div class="clabel">whatsapp</div><div class="cvalue">(11) 91721-7364</div></div>
+        <span class="arrow">↗</span>
+      </a>
+      <a class="contact-link tilt" href="https://www.linkedin.com/in/franciele-souza-developer" target="_blank" rel="noopener">
+        <div><div class="clabel">linkedin</div><div class="cvalue">/in/franciele-souza-developer</div></div>
+        <span class="arrow">↗</span>
+      </a>
+      <a class="contact-link tilt" href="https://github.com/FrancieleSZ" target="_blank" rel="noopener">
+        <div><div class="clabel">github</div><div class="cvalue">@FrancieleSZ</div></div>
+        <span class="arrow">↗</span>
+      </a>
     </div>
   </section>
 
 </main>
 
 <footer>
-  <span class="foot-cursor">$</span> echo "obrigada pela visita" — Franciele Souza de Jesus, 2026
+  feito com <span class="heart">♥</span> por Franciele Souza de Jesus, 2026
 </footer>
 
+<script>
+(function(){
+  "use strict";
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var coarsePointer = window.matchMedia('(hover: none)').matches;
+
+  /* ---------- cursor glow ---------- */
+  var glow = document.getElementById('cursorGlow');
+  var gx = window.innerWidth / 2, gy = window.innerHeight / 2;
+  var tx = gx, ty = gy;
+  if (glow && !coarsePointer){
+    window.addEventListener('mousemove', function(e){
+      tx = e.clientX; ty = e.clientY;
+      glow.style.opacity = '1';
+    });
+    document.addEventListener('mouseleave', function(){ glow.style.opacity = '0'; });
+    (function loop(){
+      gx += (tx - gx) * 0.15;
+      gy += (ty - gy) * 0.15;
+      glow.style.transform = 'translate(' + gx + 'px,' + gy + 'px) translate(-50%,-50%)';
+      requestAnimationFrame(loop);
+    })();
+  } else if (glow){
+    glow.style.display = 'none';
+  }
+
+  /* ---------- constellation background ---------- */
+  var canvas = document.getElementById('constellation');
+  if (canvas && !coarsePointer){
+    var ctx = canvas.getContext('2d');
+    var w, h, dpr = Math.min(window.devicePixelRatio || 1, 2);
+    var mouse = { x: -9999, y: -9999 };
+    var particles = [];
+    var colors = ['236,92,134', '142,111,217', '79,191,162'];
+
+    function resize(){
+      w = window.innerWidth; h = window.innerHeight;
+      canvas.width = w * dpr; canvas.height = h * dpr;
+      canvas.style.width = w + 'px'; canvas.style.height = h + 'px';
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      var count = Math.min(70, Math.floor((w * h) / 18000));
+      particles = [];
+      for (var i = 0; i < count; i++){
+        particles.push({
+          x: Math.random() * w,
+          y: Math.random() * h,
+          vx: (Math.random() - 0.5) * 0.25,
+          vy: (Math.random() - 0.5) * 0.25,
+          r: Math.random() * 1.6 + 0.6,
+          c: colors[i % colors.length]
+        });
+      }
+    }
+
+    window.addEventListener('mousemove', function(e){ mouse.x = e.clientX; mouse.y = e.clientY; });
+    window.addEventListener('mouseleave', function(){ mouse.x = -9999; mouse.y = -9999; });
+    window.addEventListener('resize', resize);
+    resize();
+
+    function tick(){
+      ctx.clearRect(0, 0, w, h);
+      for (var i = 0; i < particles.length; i++){
+        var p = particles[i];
+        p.x += p.vx; p.y += p.vy;
+        if (p.x < 0 || p.x > w) p.vx *= -1;
+        if (p.y < 0 || p.y > h) p.vy *= -1;
+
+        var dx = mouse.x - p.x, dy = mouse.y - p.y;
+        var dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < 140){
+          var force = (140 - dist) / 140;
+          p.x -= (dx / dist) * force * 1.1;
+          p.y -= (dy / dist) * force * 1.1;
+        }
+
+        for (var j = i + 1; j < particles.length; j++){
+          var q = particles[j];
+          var ddx = p.x - q.x, ddy = p.y - q.y;
+          var d = Math.sqrt(ddx * ddx + ddy * ddy);
+          if (d < 110){
+            ctx.strokeStyle = 'rgba(' + p.c + ',' + (0.14 * (1 - d / 110)) + ')';
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(p.x, p.y);
+            ctx.lineTo(q.x, q.y);
+            ctx.stroke();
+          }
+        }
+      }
+      for (var k = 0; k < particles.length; k++){
+        var pt = particles[k];
+        ctx.fillStyle = 'rgba(' + pt.c + ',0.55)';
+        ctx.beginPath();
+        ctx.arc(pt.x, pt.y, pt.r, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      requestAnimationFrame(tick);
+    }
+    if (!reduceMotion) tick(); else { resize(); tick = function(){}; ctx.clearRect(0,0,w,h); }
+  }
+
+  /* ---------- tilt + spotlight on cards ---------- */
+  if (!coarsePointer){
+    document.querySelectorAll('.tilt').forEach(function(card){
+      card.addEventListener('mousemove', function(e){
+        var rect = card.getBoundingClientRect();
+        var px = (e.clientX - rect.left) / rect.width;
+        var py = (e.clientY - rect.top) / rect.height;
+        var rotX = (py - 0.5) * -6;
+        var rotY = (px - 0.5) * 6;
+        card.style.transform = 'perspective(700px) rotateX(' + rotX + 'deg) rotateY(' + rotY + 'deg) translateY(-3px)';
+        card.style.setProperty('--mx', (px * 100) + '%');
+        card.style.setProperty('--my', (py * 100) + '%');
+      });
+      card.addEventListener('mouseleave', function(){
+        card.style.transform = '';
+      });
+    });
+  }
+
+  /* ---------- magnetic buttons ---------- */
+  if (!coarsePointer){
+    document.querySelectorAll('.btn').forEach(function(btn){
+      btn.addEventListener('mousemove', function(e){
+        var rect = btn.getBoundingClientRect();
+        var mx = e.clientX - rect.left - rect.width / 2;
+        var my = e.clientY - rect.top - rect.height / 2;
+        btn.style.transform = 'translate(' + (mx * 0.18) + 'px,' + (my * 0.35 - 2) + 'px)';
+      });
+      btn.addEventListener('mouseleave', function(){ btn.style.transform = ''; });
+    });
+  }
+})();
+</script>
 </body>
 </html>
