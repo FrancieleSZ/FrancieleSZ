@@ -5,7 +5,7 @@
 ###
 
 <div data-importer="image" align="center">
-  <img data-importer="image" align="center" height="150" src="https://i.imgflip.com/65efzo.gif"  />
+  <img data-importer="image" align="center" height="150" src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExN3l2YTFxNmRlMzZucXFuc2QzNTBleTV3NGpmM3R3bXQ1ODljdDhwNyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/iY25xIloX4bkwhcJJG/giphy.gif"  />
 </div>
 
 ###
