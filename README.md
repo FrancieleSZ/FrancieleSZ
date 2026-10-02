@@ -32,31 +32,23 @@
 
 ###
 
-<h3 data-importer="text" align="left">🛠 Linguagens:</h3>
+## 🛠️ Tecnologias e conhecimentos
 
-###
+### Linguagens
+- ☕ Java
+- 🐍 Python
+- 🗄️ SQL
 
-<div data-importer="techs" align="left">
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" height="40" alt="java logo"  />
-  <img width="12" />
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" height="40" alt="python logo"  />
-  <img width="12" />
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original.svg" height="40" alt="spring logo"  />
-</div>
+### Atualmente estudando
+- 🌱 Spring Boot
+- 🌱 Programação Orientada a Objetos
+- 🌱 Estruturas de dados
+- 🌱 Desenvolvimento de APIs REST
 
-###
-
-<h3 data-importer="text" align="left">🛠 Ferramentas:</h3>
-
-###
-
-<div data-importer="techs" align="left">
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/intellij/intellij-original.svg" height="40" alt="intellij logo"  />
-  <img width="12" />
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" height="40" alt="vscode logo"  />
-  <img width="12" />
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pycharm/pycharm-original.svg" height="40" alt="pycharm logo"  />
-</div>
+### Ferramentas
+- Git
+- GitHub
+- IntelliJ IDEA
 
 ###
 
