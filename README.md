@@ -25,7 +25,10 @@
 
 ###
 
-<p data-importer="text" align="left">Uma brasileira apaixonada por TI<br><br>- 🔭 Trabalahndo em futuros projetos na área<br>- 📚 Atualmente estudando Java e SpringBoot<br>- ⚡ No tempo livre, a leitura é minha companhia</p>
+🎓 Estudante de **Ciência da Computação na UNICID**  
+💻 Focada em desenvolvimento **Back-end**  
+🌱 Atualmente estudando **Java, Spring Boot, Python e SQL**  
+🎯 Em busca de uma oportunidade de **estágio em Tecnologia**
 
 ###
 
