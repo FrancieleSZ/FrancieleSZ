@@ -53,15 +53,12 @@
 - Postman
 - PostgreSQL 
 - MySQL 
+- Claude
 
 ###
 
 <h3 data-importer="text" align="left">🩷​ Portfólio </h3>
 <a href="https://francielesz.github.io/FrancieleSZ/">Visitar Portfólio</a>
-
-###
-
-<h3 data-importer="text" align="left">🔥   Meus status:</h3>
 
 ###
 
