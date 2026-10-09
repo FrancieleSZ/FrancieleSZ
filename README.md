@@ -49,6 +49,10 @@
 - Git
 - GitHub
 - IntelliJ IDEA
+- VScode
+- Postman
+- PostgreSQL 
+- MySQL 
 
 ###
 
