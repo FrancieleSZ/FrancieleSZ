@@ -71,6 +71,29 @@
 
 ###
 
+## 🌷 Projetos em destaque
+
+<div align="center">
+  <img height="95" alt="Gatinho programando" src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" />
+  <p>Um pouquinho do que venho construindo e aprendendo! 💗</p>
+</div>
+
+### 🛍️ Sistema de Loja de Vendas | Python + MySQL
+Aplicação de terminal para gerenciamento de vendas e funcionários, com cadastro de vendas, cálculo de descontos, relatórios e integração com banco de dados MySQL.
+
+**Tecnologias:** `Python` · `MySQL` · `python-dotenv`
+
+[![Ver projeto da loja](https://img.shields.io/badge/Ver_projeto-FF69B4?style=for-the-badge&logo=github&logoColor=white)](https://github.com/FrancieleSZ/Store-Management-System-Python-MySQL-)
+
+### 📚 Sistema de Biblioteca | Java + PostgreSQL
+Sistema de terminal com pesquisa de livros, cadastro e login de funcionários e armazenamento em PostgreSQL. Novas funcionalidades de empréstimos e devoluções estão **em desenvolvimento**.
+
+**Tecnologias:** `Java` · `Maven` · `PostgreSQL` · `JDBC`
+
+[![Ver projeto da biblioteca](https://img.shields.io/badge/Ver_projeto-9B59B6?style=for-the-badge&logo=github&logoColor=white)](https://github.com/FrancieleSZ/Biblioteca)
+
+---
+
 ## Meu gráfico de contribuições
 
 <!-- pacman -->
