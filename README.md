@@ -43,6 +43,7 @@
 ![Postman](https://img.shields.io/badge/Postman-c4b5fd?style=for-the-badge&logo=postman&logoColor=white)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-f472b6?style=for-the-badge&logo=postgresql&logoColor=white)
 ![MySQL](https://img.shields.io/badge/MySQL-f9a8d4?style=for-the-badge&logo=mysql&logoColor=white)
+![Claude](https://img.shields.io/badge/Claude-c4b5fd?style=for-the-badge&logo=claude&logoColor=white)
 
 **🌱 No meu caderninho de estudos:** Spring Boot · Programação Orientada a Objetos · Estruturas de Dados · APIs REST
 
