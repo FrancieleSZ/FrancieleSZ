@@ -44,6 +44,7 @@
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-f472b6?style=for-the-badge&logo=postgresql&logoColor=white)
 ![MySQL](https://img.shields.io/badge/MySQL-f9a8d4?style=for-the-badge&logo=mysql&logoColor=white)
 ![Claude](https://img.shields.io/badge/Claude-c4b5fd?style=for-the-badge&logo=claude&logoColor=white)
+![ChatGPT](https://img.shields.io/badge/ChatGPT-f472b6?style=for-the-badge&logo=openai&logoColor=white)
 
 **🌱 No meu caderninho de estudos:** Spring Boot · Programação Orientada a Objetos · Estruturas de Dados · APIs REST
 
